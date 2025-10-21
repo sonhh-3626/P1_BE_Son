@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  discount_percentage: 1
+  min_amount: 9.99
+  free_shipping: false
+  expires: 2025-10-21 09:34:59
+
+two:
+  code: MyString
+  discount_percentage: 1
+  min_amount: 9.99
+  free_shipping: false
+  expires: 2025-10-21 09:34:59

@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  price: 9.99
+  discount_percentage: 1
+  stock_quantity: 1
+  rating: 9.99
+  type: 
+  loved: false
+  deal_end_time: 2025-10-21 09:33:42
+  in_stock: false
+  on_sale: false
+  category: one
+
+two:
+  name: MyString
+  description: MyText
+  price: 9.99
+  discount_percentage: 1
+  stock_quantity: 1
+  rating: 9.99
+  type: 
+  loved: false
+  deal_end_time: 2025-10-21 09:33:42
+  in_stock: false
+  on_sale: false
+  category: two
