@@ -6,18 +6,16 @@ class Order < ApplicationRecord
   has_one :billing_detail, dependent: :destroy
 
   accepts_nested_attributes_for :billing_detail
+  accepts_nested_attributes_for :order_items
+
+  enum :status, { processing: 0, shipped: 1, completed: 2, refunded: 3, cancelled: 4 }
 
   validates :subtotal, :final_total, numericality: { greater_than_or_equal_to: 0 }
+  validates :status, presence: true
 
-  before_validation :calculate_totals
-
-  def calculate_totals
-    self.subtotal = order_items.sum { |item| item.price * item.quantity }
-    if coupon && !coupon.expired?
-      self.applied_discount = subtotal * coupon.discount_percentage / 100.0
-    else
-      self.applied_discount = 0
-    end
-    self.final_total = subtotal - applied_discount
-  end
+  scope :processing, -> { where(status: :processing) }
+  scope :shipped, -> { where(status: :shipped) }
+  scope :completed, -> { where(status: :completed) }
+  scope :refunded, -> { where(status: :refunded) }
+  scope :cancelled, -> { where(status: :cancelled) }
 end

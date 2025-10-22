@@ -170,13 +170,36 @@ image_urls = [
 
   ProductImage.create!(
     product: product,
-    image_url: image_urls
+    image_url: image_urls[0]
+  )
+
+  ProductImage.create!(
+    product: product,
+    image_url: image_urls[1]
+  )
+
+  ProductImage.create!(
+    product: product,
+    image_url: image_urls[2]
   )
 
   Review.create!(
     user: customer,
     product: product,
-    rating: rand(1..5),
+    rating: rand(2..5),
+    comment: [
+      "Sản phẩm #{product.name} rất tốt, giao hàng nhanh.",
+      "Hàng chất lượng, đúng mô tả.",
+      "Giá hợp lý, sẽ mua lại lần sau.",
+      "Đóng gói cẩn thận, rất hài lòng.",
+      "#{product.name} đáng tiền, khuyên dùng!"
+    ].sample
+  )
+
+  Review.create!(
+    user: customer,
+    product: product,
+    rating: rand(2..5),
     comment: [
       "Sản phẩm #{product.name} rất tốt, giao hàng nhanh.",
       "Hàng chất lượng, đúng mô tả.",
@@ -198,7 +221,8 @@ puts "🍽️ Tạo đơn hàng thực phẩm mẫu..."
 order_food = Order.create!(
   user: customer,
   is_free_shipping: true,
-  order_date: Time.current
+  order_date: Time.current,
+  status: 0,
 )
 
 BillingDetail.create!(
@@ -212,13 +236,14 @@ BillingDetail.create!(
   state: "TT-Huế",
   zip_code: "53000",
   phone: "0901234567",
-  email: "customer2@example.com"
+  email: "customer2@example.com",
+  create_account: false,
+  ship_to_a_different_address: false
 )
 
 OrderItem.create!(order: order_food, product: Product.first, quantity: 3, price: Product.first.price)
 OrderItem.create!(order: order_food, product: Product.second, quantity: 1, price: Product.second.price)
 
-order_food.calculate_totals
 order_food.save!
 
 puts "✅ Seed dữ liệu hoàn tất!"

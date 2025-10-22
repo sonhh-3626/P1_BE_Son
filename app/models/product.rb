@@ -22,4 +22,15 @@ class Product < ApplicationRecord
   def on_sale?
     discount_percentage > 0
   end
+
+  def image_urls
+    product_images.map(&:image_url)
+  end
+
+  def review_count
+    reviews.count
+  end
+
+  alias_method :imageUrls, :image_urls
+  alias_method :reviewCount, :review_count
 end

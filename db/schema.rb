@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_040847) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_22_034441) do
   create_table "billing_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.string "first_name"
@@ -27,6 +27,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_040847) do
     t.text "order_notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "create_account"
+    t.boolean "ship_to_a_different_address"
     t.index ["order_id"], name: "index_billing_details_on_order_id"
   end
 
@@ -72,13 +74,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_040847) do
   create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "coupon_id"
-    t.decimal "subtotal", precision: 10
+    t.decimal "subtotal", precision: 10, default: "0"
     t.decimal "applied_discount", precision: 10
-    t.decimal "final_total", precision: 10
+    t.decimal "final_total", precision: 10, default: "0"
     t.boolean "is_free_shipping"
     t.datetime "order_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
     t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -98,7 +101,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_040847) do
     t.integer "discount_percentage"
     t.integer "stock_quantity"
     t.decimal "rating", precision: 10
-    t.boolean "loved"
+    t.boolean "loved", default: false
     t.datetime "deal_end_time"
     t.boolean "in_stock"
     t.boolean "on_sale"
